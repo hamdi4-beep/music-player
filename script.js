@@ -114,10 +114,11 @@ const init = () => {
         const progress = currentPlayer.querySelector('.progress')
         details.textContent = ' - is loading...'
         progress.classList.add('loading')
+        currentPlayer.querySelector('.loading').style.width = '5em'
     }
 
     audio.oncanplay = function() {
-        const progress = currentPlayer.querySelector('.progress')
+        const progress = currentPlayer.querySelector('.loading')
         details.textContent = ' - is playing now!'
         progress.classList.remove('loading')
         audio.play()
