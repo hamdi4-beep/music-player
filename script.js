@@ -103,6 +103,8 @@ const init = () => {
                 bar.style.width = '0%'
 
                 player.classList.remove('selected')
+            } else {
+                if (currentPlayer.clientHeight == 166) currentPlayer.classList.add('selected')
             }
         }
     }
@@ -120,6 +122,8 @@ const init = () => {
 
         details.textContent = ' - is playing now!'
         progress.classList.remove('loading')
+
+        currentPlayer.classList.add('selected')
         audio.play()
     }
 
@@ -150,14 +154,6 @@ const init = () => {
             info = currentPlayer.querySelector('.info')
             details = info.querySelector('p span')
             if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) details.textContent = ' - is playing now!'
-
-            for (const player of trackContainers) {
-                if (player.classList.contains('hidden')) {
-                    currentPlayer.classList.remove('selected')
-                } else {
-                    currentPlayer.classList.add('selected')
-                }
-            }
 
             audio.play()
         } else if (event.target.id == 'pause' && player == currentPlayer) {
