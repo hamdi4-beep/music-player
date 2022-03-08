@@ -120,8 +120,14 @@ body {
         display: none;
     }
 
+    .hidden ~ .selected {
+        top: 0;
+        border-color: white;
+    }
+
     .selected {
         top: -.5em;
+        border-color: #EEE;
     }
 }
 

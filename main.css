@@ -105,8 +105,13 @@ body {
 .wrapper .hidden {
   display: none;
 }
+.wrapper .hidden ~ .selected {
+  top: 0;
+  border-color: white;
+}
 .wrapper .selected {
   top: -0.5em;
+  border-color: #EEE;
 }
 
 @media only screen and (max-width: 848px) {

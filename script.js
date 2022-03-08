@@ -103,15 +103,12 @@ const init = () => {
                 bar.style.width = '0%'
 
                 player.classList.remove('selected')
-            } else {
-                if (currentPlayer.clientHeight == 166) currentPlayer.classList.add('selected')
             }
         }
     }
 
     audio.onloadstart = function() {
         const progress = currentPlayer.querySelector('.progress')
-
         details.textContent = ' - is loading...'
         progress.classList.add('loading')
         progress.style.width = '5em'
@@ -119,11 +116,8 @@ const init = () => {
 
     audio.oncanplay = function() {
         const progress = currentPlayer.querySelector('.progress')
-
         details.textContent = ' - is playing now!'
         progress.classList.remove('loading')
-
-        currentPlayer.classList.add('selected')
         audio.play()
     }
 
@@ -153,8 +147,11 @@ const init = () => {
             currentPlayer = event.currentTarget
             info = currentPlayer.querySelector('.info')
             details = info.querySelector('p span')
+
             if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) details.textContent = ' - is playing now!'
 
+            currentPlayer.classList.add('selected')
+            
             audio.play()
         } else if (event.target.id == 'pause' && player == currentPlayer) {
             audio.pause()
