@@ -150,17 +150,19 @@ body {
     }
 }
 
-@media only screen and (max-width: 848px) {
+@media only screen and (max-width: 768px) {
     .wrapper {
         height: 100%;
-
-        .hidden + .track-container, .hidden .track-container:first-child {
-            height: 100vh;
-        }
+        margin: 0;
+        display: block;
 
         .selected {
             top: 0;
             left: .5em;
+        }
+
+        .track-container:not(:last-child) {
+            margin-bottom: 1em;
         }
     }
 }

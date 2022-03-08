@@ -132,16 +132,18 @@ body {
     height: 50vh;
   }
 }
-@media only screen and (max-width: 848px) {
+@media only screen and (max-width: 768px) {
   .wrapper {
     height: 100%;
-  }
-  .wrapper .hidden + .track-container, .wrapper .hidden .track-container:first-child {
-    height: 100vh;
+    margin: 0;
+    display: block;
   }
   .wrapper .selected {
     top: 0;
     left: 0.5em;
+  }
+  .wrapper .track-container:not(:last-child) {
+    margin-bottom: 1em;
   }
 }
 @keyframes animation {
