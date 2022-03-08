@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --border-color: #DDD;
+}
+
+body {
+  margin: 0;
+}
+
+.wrapper {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin-inline: auto;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
+  gap: 1em;
+  transition: all 0.5s ease;
+  height: 100vh;
+}
+.wrapper .track-container {
+  position: relative;
+  top: 0;
+  left: 0;
+  background: #444;
+  background-clip: padding-box;
+  background-size: cover;
+  background-position: center;
+  padding: 1em;
+  border: 1em solid white;
+  box-shadow: 0 0 0.1em black;
+  display: grid;
+  color: white;
+  transition: all 0.5s ease;
+}
+.wrapper .track-container:nth-child(3) {
+  grid-row: span 2;
+}
+.wrapper .track-container .fa-close {
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  display: none;
+  font-size: 1.5em;
+}
+.wrapper .track-container .info {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2em;
+}
+.wrapper .track-container .info > p, .wrapper .track-container .info {
+  justify-self: center;
+  align-self: flex-start;
+}
+.wrapper .track-container .controls {
+  position: relative;
+  display: flex;
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+}
+.wrapper .track-container .controls .progress {
+  position: absolute;
+  top: -1px;
+  height: 1px;
+  width: 0;
+  background: purple;
+  transition: width 0.5s ease;
+}
+.wrapper .track-container .controls .loading {
+  animation: animation alternate-reverse infinite 0.5s ease-in;
+  width: 5em;
+  z-index: 999;
+}
+.wrapper .track-container .controls a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 0.5em 1em;
+  margin-top: 0.5em;
+}
+.wrapper .track-container .controls a:hover {
+  background: white;
+  color: black;
+}
+.wrapper .track-container .controls .fa-edit {
+  margin-top: 0.5em;
+  margin-left: auto;
+  margin-right: 0.5em;
+  align-self: center;
+}
+.wrapper .track-container .fas:hover {
+  color: purple;
+}
+.wrapper .track-container p {
+  margin: 0;
+}
+.wrapper .track-container .duration {
+  position: absolute;
+  right: 1em;
+  bottom: 4em;
+  margin-left: auto;
+}
+.wrapper .hidden {
+  display: none;
+}
+.wrapper .selected {
+  top: -0.5em;
+}
+
+@media only screen and (max-width: 848px) {
+  .wrapper {
+    height: 100%;
+  }
+  .wrapper .hidden + .track-container, .wrapper .hidden .track-container:first-child {
+    height: 100vh;
+  }
+  .wrapper .selected {
+    top: 0;
+    left: 0.5em;
+  }
+}
+@keyframes animation {
+  from {
+    background-color: purple;
+    left: 0%;
+  }
+  to {
+    background-color: black;
+    left: calc(100% - 5em);
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

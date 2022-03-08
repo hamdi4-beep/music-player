@@ -1,0 +1,151 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --border-color: #DDD;
+}
+
+body {
+    margin: 0;
+}
+
+.wrapper {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-inline: auto;
+    padding: 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
+    gap: 1em;
+    transition: all .5s ease;
+    height: 100vh;
+
+    .track-container {
+        position: relative;
+        top: 0;
+        left: 0;
+        background: #444;
+        background-clip: padding-box;
+        background-size: cover;
+        background-position: center;
+        padding: 1em;
+        border: 1em solid white;
+        box-shadow: 0 0 .1em black;
+        display: grid;
+        color: white;
+        transition: all .5s ease;
+
+        &:nth-child(3) {
+            grid-row: span 2;
+        }
+
+        .fa-close {
+            position: absolute;
+            right: .5em;
+            top: .5em;
+            display: none;
+            font-size: 1.5em;
+        }
+
+        .info {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2em;
+
+            & > p, & {
+                justify-self: center;
+                align-self: flex-start;
+            }
+        }
+
+        .controls {
+            position: relative;
+            display: flex;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+
+            .progress {
+                position: absolute;
+                top: -1px;
+                height: 1px;
+                width: 0;
+                background: purple;
+                transition: width .5s ease;
+            }
+
+            .loading {
+                animation: animation alternate-reverse infinite .5s ease-in;
+                width: 5em;
+                z-index: 999;
+            }
+
+            a {
+                display: block;
+                text-decoration: none;
+                color: white;
+                padding: .5em 1em;
+                margin-top: .5em;
+
+                &:hover {
+                    background: white;
+                    color: black;
+                }
+            }
+
+            .fa-edit {
+                margin-top: .5em;
+                margin-left: auto;
+                margin-right: .5em;
+                align-self: center;
+            }
+        }
+
+        .fas:hover {
+            color: purple;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .duration {
+            position: absolute;
+            right: 1em;
+            bottom: 4em;
+            margin-left: auto;
+        }
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .selected {
+        top: -.5em;
+    }
+}
+
+@media only screen and (max-width: 848px) {
+    .wrapper {
+        height: 100%;
+
+        .hidden + .track-container, .hidden .track-container:first-child {
+            height: 100vh;
+        }
+
+        .selected {
+            top: 0;
+            left: .5em;
+        }
+    }
+}
+
+@keyframes animation {
+    from {
+        background-color: purple;
+        left: 0%;
+    } to {
+        background-color: black;
+        left: calc(100% - 5em);
+    }
+}
