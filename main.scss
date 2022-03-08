@@ -107,7 +107,7 @@ body {
             }
 
             .loading {
-                animation: animation alternate-reverse infinite .5s ease-in;
+                animation: animation alternate-reverse infinite .5s ease-in-out;
                 width: 5em;
                 z-index: 999;
             }
@@ -118,6 +118,7 @@ body {
                 color: white;
                 padding: .5em 1em;
                 margin-top: .5em;
+                transition: all .5s ease;
 
                 &:hover {
                     background: white;
