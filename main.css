@@ -119,6 +119,19 @@ body {
   border-color: var(--selection-color);
 }
 
+@media only screen and (min-width: 1680px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .wrapper {
+    width: 50vw;
+    height: 50vh;
+  }
+}
 @media only screen and (max-width: 848px) {
   .wrapper {
     height: 100%;
