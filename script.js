@@ -35,12 +35,15 @@ const init = () => {
 
         trackContainers[i].ondblclick = function(ev) {
             if (ev.target.className == trackContainers[i].className) {
+                const _target = ev.target
+
                 for (const track of trackContainers) {
                     if (ev.target != track) {
                         track.classList.add('hidden')
                     } else {
                         const closeIcon = track.querySelector('.fa-close')
                         closeIcon.style.display = 'inline'
+                        _target.classList.remove('selected')
                     }
                 }
             }
@@ -106,14 +109,15 @@ const init = () => {
 
     audio.onloadstart = function() {
         const progress = currentPlayer.querySelector('.progress')
-        details.textContent = ' - is loading...'
 
-        if (!progress.classList.contains('loading')) progress.classList.add('loading')
+        details.textContent = ' - is loading...'
+        progress.classList.add('loading')
         progress.style.width = '5em'
     }
 
     audio.oncanplay = function() {
         const progress = currentPlayer.querySelector('.progress')
+
         details.textContent = ' - is playing now!'
         progress.classList.remove('loading')
         audio.play()
@@ -136,7 +140,6 @@ const init = () => {
     function playMusic(event, url) {
         const player = event.target.parentElement.parentNode
         let info
-        let bar
 
         if (event.target.id == 'play') {
             if (audio.src != url) {
@@ -146,10 +149,15 @@ const init = () => {
             currentPlayer = event.currentTarget
             info = currentPlayer.querySelector('.info')
             details = info.querySelector('p span')
-            bar = currentPlayer.querySelector('.progress')
             if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) details.textContent = ' - is playing now!'
 
-            currentPlayer.classList.add('selected')
+            for (const player of trackContainers) {
+                if (player.classList.contains('hidden')) {
+                    currentPlayer.classList.remove('selected')
+                } else {
+                    currentPlayer.classList.add('selected')
+                }
+            }
 
             audio.play()
         } else if (event.target.id == 'pause' && player == currentPlayer) {
