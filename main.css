@@ -4,6 +4,7 @@
 
 :root {
   --border-color: #DDD;
+  --selection-color: transparent;
 }
 
 body {
@@ -44,6 +45,7 @@ body {
   top: 0.5em;
   display: none;
   font-size: 1.5em;
+  cursor: pointer;
 }
 .wrapper .track-container .info {
   display: flex;
@@ -90,6 +92,9 @@ body {
   margin-right: 0.5em;
   align-self: center;
 }
+.wrapper .track-container .controls .fas {
+  cursor: pointer;
+}
 .wrapper .track-container .fas:hover {
   color: purple;
 }
@@ -111,7 +116,7 @@ body {
 }
 .wrapper .selected {
   top: -0.5em;
-  border-color: #EEE;
+  border-color: var(--selection-color);
 }
 
 @media only screen and (max-width: 848px) {

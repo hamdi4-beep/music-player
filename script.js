@@ -14,8 +14,8 @@ const init = () => {
     ]
 
     const list = [
-        'https://vgmsite.com/soundtracks/persona-5/szuiidvl/1-01.%20Wake%20Up%2C%20Get%20Up%2C%20Get%20Out%20There.mp3',
-        'https://vgmsite.com/soundtracks/kirby-planet-robobot-original-soundtrack/dopwqvhctg/1-05%20Adventure%20in%20the%20World%20of%20Machines.mp3',
+        'https://davgmsite.com/soundtracks/persona-5/szuiidvl/1-01.%20Wake%20Up%2C%20Get%20Up%2C%20Get%20Out%20There.mp3',
+        'https://vgmsite.com/soundtracks/kirby-s-return-to-dream-land/ozhvtqgwda/1-04%20A%20Visitor%20from%20Afar.mp3',
         'https://vgmsite.com/soundtracks/silent-hill-3-original/eibucmzo/03.%20Float%20Up%20From%20Dream.mp3',
         'https://vgmsite.com/soundtracks/persona-4-arena-original-soundtrack/qfpkhgsflq/01.%20Best%20Friends.mp3',
         'https://vgmsite.com/soundtracks/metal-gear-solid-3-snake-eater-original-soundtrack/luivnntl/1-03.%20CQC.mp3'
@@ -114,7 +114,6 @@ const init = () => {
         const progress = currentPlayer.querySelector('.progress')
         details.textContent = ' - is loading...'
         progress.classList.add('loading')
-        progress.style.width = '5em'
     }
 
     audio.oncanplay = function() {
