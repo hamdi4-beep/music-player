@@ -43,7 +43,6 @@ const init = () => {
                     } else {
                         const closeIcon = track.querySelector('.fa-close')
                         closeIcon.style.display = 'inline'
-                        _target.classList.remove('selected')
                     }
                 }
             }
@@ -151,7 +150,7 @@ const init = () => {
             if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) details.textContent = ' - is playing now!'
 
             currentPlayer.classList.add('selected')
-            
+
             audio.play()
         } else if (event.target.id == 'pause' && player == currentPlayer) {
             audio.pause()
