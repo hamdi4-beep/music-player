@@ -35,7 +35,7 @@ const init = () => {
 
         trackContainers[i].ondblclick = function(ev) {
             if (ev.target.className == trackContainers[i].className) {
-                const _target = ev.target
+                const firstChild = wrapper.firstElementChild
 
                 for (const track of trackContainers) {
                     if (ev.target != track) {
@@ -45,6 +45,8 @@ const init = () => {
                         closeIcon.style.display = 'inline'
                     }
                 }
+
+                if (ev.target == firstChild) firstChild.classList.remove('selected')
             }
         }
 
@@ -60,6 +62,8 @@ const init = () => {
                     if (track.classList.contains('hidden')) {
                         track.classList.remove('hidden')
                     }
+
+                    if (currentPlayer == wrapper.firstElementChild) currentPlayer.classList.add('selected')
                 }
 
                 closeIcon.style.display = 'none'
@@ -150,6 +154,12 @@ const init = () => {
             if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) details.textContent = ' - is playing now!'
 
             currentPlayer.classList.add('selected')
+
+            for (const player of trackContainers) {
+                if (player.classList.contains('hidden')) {
+                    wrapper.firstElementChild.classList.remove('selected')
+                }
+            }
 
             audio.play()
         } else if (event.target.id == 'pause' && player == currentPlayer) {
