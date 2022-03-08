@@ -140,6 +140,7 @@ const init = () => {
 
     function playMusic(event, url) {
         const player = event.target.parentElement.parentNode
+        const firstChild = wrapper.firstElementChild // first player container
         let info
 
         if (event.target.id == 'play') {
@@ -157,7 +158,7 @@ const init = () => {
 
             for (const player of trackContainers) {
                 if (player.classList.contains('hidden')) {
-                    wrapper.firstElementChild.classList.remove('selected')
+                    firstChild.classList.remove('selected')
                 }
             }
 
