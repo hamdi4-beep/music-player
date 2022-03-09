@@ -110,7 +110,7 @@ const init = () => {
         const progress = currentPlayer.querySelector('.progress')
         status.textContent = ' - is loading...'
         progress.classList.add('loading')
-        currentPlayer.querySelector('.loading').style.width = '5em'
+        progress.style.width = '5em'
     }
 
     audio.oncanplay = function() {
@@ -142,6 +142,7 @@ const init = () => {
 
     audio.onpause = function() {
         if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) status.textContent = ' - is paused now!'
+        currentPlayer.querySelector('.progress').classList.remove('loading')
     }
 
     audio.onerror = function() {
