@@ -34,6 +34,8 @@ const init = () => {
         p.classList.add('duration')
 
         trackContainers[i].ondblclick = function(ev) {
+            const styles = getComputedStyle(wrapper)
+
             if (ev.target.className == trackContainers[i].className) {
                 const firstChild = wrapper.firstElementChild
 
@@ -46,7 +48,16 @@ const init = () => {
                     }
                 }
 
-                if (ev.target == firstChild) firstChild.classList.remove('selected')
+                if (ev.target == firstChild) {
+                    firstChild.classList.remove('selected')
+                    firstChild.classList.add('first-child')
+                }
+
+                if (styles.getPropertyValue('display') == 'block') {
+                    if (ev.target.classList[1] == 'player-one') {
+                        firstChild.classList.add('full-view')
+                    }
+                }
             }
         }
 
@@ -63,7 +74,11 @@ const init = () => {
                         track.classList.remove('hidden')
                     }
 
-                    if (currentPlayer == wrapper.firstElementChild) currentPlayer.classList.add('selected')
+                    if (currentPlayer == wrapper.firstElementChild) {
+                        currentPlayer.classList.add('selected')
+                        currentPlayer.classList.remove('first-child')
+                        currentPlayer.classList.remove('full-view')
+                    }
                 }
 
                 closeIcon.style.display = 'none'
@@ -106,6 +121,7 @@ const init = () => {
                 bar.style.width = '0%'
 
                 player.classList.remove('selected')
+                player.classList.remove('first-child')
             }
         }
     }
@@ -119,7 +135,7 @@ const init = () => {
 
     audio.oncanplay = function() {
         const progress = currentPlayer.querySelector('.loading')
-        details.textContent = ' - is playing now!'
+        if (!audio.stopped) details.textContent = ' - is playing now!'
         progress.classList.remove('loading')
         audio.play()
     }
@@ -162,9 +178,16 @@ const init = () => {
                 }
             }
 
+            if (audio.stopped) audio.stopped = false
+
             audio.play()
         } else if (event.target.id == 'pause' && player == currentPlayer) {
             audio.pause()
+        } else if (event.target.id == 'stop' && player == currentPlayer) {
+            audio.stopped = true
+            audio.pause()
+            audio.currentTime = 0
+            details.textContent = ' - has stopped playing!'
         }
     }
 

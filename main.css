@@ -3,7 +3,7 @@
 }
 
 :root {
-  --border-color: #DDD;
+  --border-color: white;
   --selection-color: transparent;
 }
 
@@ -31,7 +31,6 @@ body {
   background-position: center;
   padding: 1em;
   border: 1em solid white;
-  box-shadow: 0 0 0.1em black;
   display: grid;
   color: white;
   transition: all 0.5s ease;
@@ -140,11 +139,23 @@ body {
 .wrapper .hidden ~ .selected {
   top: 0;
   border-color: white;
+  box-shadow: 0 0 0.1em black;
 }
 .wrapper .selected {
   position: relative;
   top: -0.5em;
   border-color: var(--border-color);
+  box-shadow: 0 0 0.1em black;
+}
+.wrapper .first-child {
+  box-shadow: 0 0 0.1em black;
+}
+.wrapper .full-view {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 @media only screen and (min-width: 1680px) {
@@ -173,23 +184,12 @@ body {
   .wrapper .track-container:not(:last-child) {
     margin-bottom: 1em;
   }
-}
-@keyframes animation {
-  from {
-    background-color: purple;
-    left: 0%;
-  }
-  to {
-    background-color: black;
-    left: calc(100% - 5em);
-  }
-}
-@keyframes line {
-  from {
-    background: linear-gradient(from left to right, black, white);
-  }
-  to {
-    background: linear-gradient(from right to left, white, black);
+  .wrapper .hidden ~ .selected {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
   }
 }
 
