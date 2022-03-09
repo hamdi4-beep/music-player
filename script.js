@@ -113,7 +113,7 @@ const init = () => {
         progress.style.width = '5em'
     }
 
-    audio.oncanplay = function() {
+    audio.oncanplaythrough = function() {
         const progress = currentPlayer.querySelector('.progress')
         if (!audio.paused) status.textContent = ' - is playing now'
         progress.classList.remove('loading')
