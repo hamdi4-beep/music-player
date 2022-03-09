@@ -3,7 +3,7 @@ const init = () => {
     const trackContainers = wrapper.querySelectorAll('.track-container')
     const audio = new Audio
     let currentPlayer
-    let details
+    let status
 
     const imgs = [
         'https://www.zastavki.com/pictures/2560x1600/2020Anime_Anime_girl_with_headphones_on_her_head_145240_19.jpg',
@@ -26,12 +26,12 @@ const init = () => {
         const info = trackContainers[i].querySelector('.info')
         const title = info.querySelector('p')
         const progress = document.createElement('div')
-        const span = document.createElement('span')
-        const p = document.createElement('p')
+        const statusTxt = document.createElement('span')
+        const durationLength = document.createElement('p')
 
         trackContainers[i].style.backgroundImage = `url(${imgs[i]})`
         progress.classList.add('progress')
-        p.classList.add('duration')
+        durationLength.classList.add('duration')
 
         trackContainers[i].ondblclick = function(ev) {
             const styles = getComputedStyle(wrapper)
@@ -88,8 +88,8 @@ const init = () => {
         }
 
         controls.append(progress)
-        title.append(span)
-        info.append(p)
+        title.append(statusTxt)
+        info.append(durationLength)
     }
 
     audio.ontimeupdate = function() {
@@ -106,18 +106,18 @@ const init = () => {
     }
 
     audio.onpause = function() {
-        if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) details.textContent = ' - is paused now!'
+        if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) status.textContent = ' - is paused now!'
     }
 
     audio.onplay = function() {
         for (const player of trackContainers) {
             if (player != currentPlayer) {
-                const span = player.querySelector('p span')
+                const status = player.querySelector('p span')
                 const duration = player.querySelector('.duration')
                 const bar = player.querySelector('.progress')
 
                 duration.textContent = ''
-                span.textContent = ''
+                status.textContent = ''
                 bar.style.width = '0%'
 
                 player.classList.remove('selected')
@@ -128,14 +128,14 @@ const init = () => {
 
     audio.onloadstart = function() {
         const progress = currentPlayer.querySelector('.progress')
-        details.textContent = ' - is loading...'
+        status.textContent = ' - is loading...'
         progress.classList.add('loading')
         currentPlayer.querySelector('.loading').style.width = '5em'
     }
 
     audio.oncanplay = function() {
         const progress = currentPlayer.querySelector('.loading')
-        if (!audio.stopped) details.textContent = ' - is playing now!'
+        if (!audio.stopped) status.textContent = ' - is playing now!'
         progress.classList.remove('loading')
         audio.play()
     }
@@ -143,7 +143,7 @@ const init = () => {
     audio.onerror = function() {
         const duration = currentPlayer.querySelector('.duration')
         const progress = currentPlayer.querySelector('.loading')
-        details.textContent = ' - failed to load!'
+        status.textContent = ' - failed to load!'
         duration.textContent = ''
         audio.error = true
         progress.classList.remove('loading')
@@ -151,13 +151,12 @@ const init = () => {
     }
 
     audio.onended = function() {
-        details.textContent = ' - has finished playing!'
+        status.textContent = ' - has finished playing!'
     }
 
     function playMusic(event, url) {
         const player = event.target.parentElement.parentNode
         const firstChild = wrapper.firstElementChild // first player container
-        let info
 
         if (event.target.id == 'play') {
             if (audio.src != url) {
@@ -165,10 +164,9 @@ const init = () => {
             }
 
             currentPlayer = event.currentTarget
-            info = currentPlayer.querySelector('.info')
-            details = info.querySelector('p span')
+            status = currentPlayer.querySelector('.info p span')
 
-            if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) details.textContent = ' - is playing now!'
+            if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) status.textContent = ' - is playing now!'
 
             currentPlayer.classList.add('selected')
 
@@ -187,7 +185,7 @@ const init = () => {
             audio.stopped = true
             audio.pause()
             audio.currentTime = 0
-            details.textContent = ' - has stopped playing!'
+            status.textContent = ' - has stopped playing!'
         }
     }
 

@@ -20,6 +20,7 @@ body {
     gap: 1em;
     transition: all .5s ease;
     height: 100vh;
+    position: relative;
 
     .track-container {
         position: relative;
@@ -40,6 +41,7 @@ body {
             content: '';
             display: block;
             position: absolute;
+            background: none;
             width: 0%;
             height: 0%;
             transition: all .5s ease;
@@ -174,14 +176,6 @@ body {
     .first-child {
         box-shadow: 0 0 .1em black;
     }
-
-    .full-view {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-    }
 }
 
 @media only screen and (min-width: 1680px) {
@@ -209,14 +203,6 @@ body {
 
         .track-container:not(:last-child) {
             margin-bottom: 1em;
-        }
-
-        .hidden ~ .selected {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
         }
     }
 }
