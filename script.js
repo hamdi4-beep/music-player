@@ -135,7 +135,7 @@ const init = () => {
     }
 
     audio.oncanplay = function() {
-        const progress = currentPlayer.querySelector('.loading')
+        const progress = currentPlayer.querySelector('.progress')
         if (!audio.stopped) status.textContent = ' - is playing now!'
         progress.classList.remove('loading')
         audio.play()
@@ -183,7 +183,7 @@ const init = () => {
         } else if (event.target.id == 'pause' && player == currentPlayer) {
             audio.pause()
         } else if (event.target.id == 'stop' && player == currentPlayer) {
-            if (!audio.error && audio.HAVE_ENOUGH_DATA) {
+            if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) {
                 audio.stopped = true
                 audio.pause()
                 audio.currentTime = 0
