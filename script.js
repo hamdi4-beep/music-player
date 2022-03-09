@@ -106,8 +106,17 @@ const init = () => {
         }
     }
 
-    audio.onpause = function() {
-        if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) status.textContent = ' - is paused now!'
+    audio.onloadstart = function() {
+        const progress = currentPlayer.querySelector('.progress')
+        status.textContent = ' - is loading...'
+        progress.classList.add('loading')
+        currentPlayer.querySelector('.loading').style.width = '5em'
+    }
+
+    audio.oncanplay = function() {
+        const progress = currentPlayer.querySelector('.progress')
+        if (!audio.paused) status.textContent = ' - is playing now'
+        progress.classList.remove('loading')
     }
 
     audio.onplay = function() {
@@ -127,18 +136,12 @@ const init = () => {
         }
     }
 
-    audio.onloadstart = function() {
-        const progress = currentPlayer.querySelector('.progress')
-        status.textContent = ' - is loading...'
-        progress.classList.add('loading')
-        currentPlayer.querySelector('.loading').style.width = '5em'
+    audio.onplaying = function() {
+        if (!audio.paused) status.textContent = ' - is playing now!'
     }
 
-    audio.oncanplay = function() {
-        const progress = currentPlayer.querySelector('.progress')
-        if (!audio.stopped) status.textContent = ' - is playing now!'
-        progress.classList.remove('loading')
-        audio.play()
+    audio.onpause = function() {
+        if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) status.textContent = ' - is paused now!'
     }
 
     audio.onerror = function() {
@@ -167,8 +170,6 @@ const init = () => {
             currentPlayer = event.currentTarget
             status = currentPlayer.querySelector('.info p span')
 
-            if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) status.textContent = ' - is playing now!'
-
             currentPlayer.classList.add('selected')
 
             for (const player of trackContainers) {
@@ -177,17 +178,17 @@ const init = () => {
                 }
             }
 
-            if (audio.stopped) audio.stopped = false
+            if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) status.textContent = ' - is playing now'
 
             audio.play()
         } else if (event.target.id == 'pause' && player == currentPlayer) {
             audio.pause()
         } else if (event.target.id == 'stop' && player == currentPlayer) {
             if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) {
-                audio.stopped = true
                 audio.pause()
                 audio.currentTime = 0
-                status.textContent = ' - has stopped playing!'
+                audio.stopped = true
+                status.textContent = ' - has stopped playing'
             }
         }
     }
