@@ -96,7 +96,7 @@ body {
   transition: width 0.5s ease;
 }
 .wrapper .track-container .controls .loading {
-  animation: animation alternate-reverse infinite 0.5s ease-in-out;
+  animation: loading alternate-reverse infinite 0.5s ease-in-out;
   width: 5em;
   z-index: 999;
 }
@@ -178,8 +178,7 @@ body {
     display: block;
   }
   .wrapper .selected {
-    top: 0;
-    left: 0.5em;
+    top: -0.5em;
   }
   .wrapper .track-container:not(:last-child) {
     margin-bottom: 1em;
@@ -190,6 +189,14 @@ body {
     height: 100%;
     left: 0;
     top: 0;
+  }
+}
+@keyframes loading {
+  from {
+    left: 0%;
+  }
+  to {
+    left: calc(100% - 5em);
   }
 }
 

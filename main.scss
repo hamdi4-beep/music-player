@@ -107,7 +107,7 @@ body {
             }
 
             .loading {
-                animation: animation alternate-reverse infinite .5s ease-in-out;
+                animation: loading alternate-reverse infinite .5s ease-in-out;
                 width: 5em;
                 z-index: 999;
             }
@@ -204,8 +204,7 @@ body {
         display: block;
 
         .selected {
-            top: 0;
-            left: .5em;
+            top: -.5em;
         }
 
         .track-container:not(:last-child) {
@@ -219,5 +218,13 @@ body {
             left: 0;
             top: 0;
         }
+    }
+}
+
+@keyframes loading {
+    from {
+        left: 0%;
+    } to {
+        left: calc(100% - 5em);
     }
 }
