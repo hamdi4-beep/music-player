@@ -85,6 +85,7 @@ const init = () => {
             }
 
             playMusic(ev, list[i])
+            ev.preventDefault()
         }
 
         controls.append(progress)
@@ -182,10 +183,12 @@ const init = () => {
         } else if (event.target.id == 'pause' && player == currentPlayer) {
             audio.pause()
         } else if (event.target.id == 'stop' && player == currentPlayer) {
-            audio.stopped = true
-            audio.pause()
-            audio.currentTime = 0
-            status.textContent = ' - has stopped playing!'
+            if (!audio.error && audio.HAVE_ENOUGH_DATA) {
+                audio.stopped = true
+                audio.pause()
+                audio.currentTime = 0
+                status.textContent = ' - has stopped playing!'
+            }
         }
     }
 
@@ -206,6 +209,8 @@ const init = () => {
                     }
 
                     reader.readAsDataURL(file)
+                } else {
+                    alert('Please make sure to upload an image file!')
                 }
             }
         }
