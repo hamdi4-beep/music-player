@@ -10,7 +10,7 @@ const init = () => {
         'https://img.wallpapersafari.com/tablet/768/1024/49/5/4usnWf.png',
         'https://wallpapercave.com/wp/9w5bb53.jpg',
         'https://wallpaperaccess.com/full/38086.jpg',
-        'https://wallpapercave.com/wp/wp4163647.jpg'
+        'https://wallpaperaccess.com/full/17350.jpg'
     ]
 
     const list = [
@@ -18,7 +18,7 @@ const init = () => {
         'https://vgmsite.com/soundtracks/kirby-s-return-to-dream-land/ozhvtqgwda/1-04%20A%20Visitor%20from%20Afar.mp3',
         'https://vgmsite.com/soundtracks/silent-hill-3-original/eibucmzo/03.%20Float%20Up%20From%20Dream.mp3',
         'https://vgmsite.com/soundtracks/persona-4-arena-original-soundtrack/qfpkhgsflq/01.%20Best%20Friends.mp3',
-        'audioclip-1612705143000-85589 (online-audio-converter.com).mp3'
+        'https://vgmsite.com/soundtracks/one-piece-pirate-warriors-3-gamerip/kpxzpwed/04%20Lets%20Put%20This%20Matter%20Under.mp3'
     ]
 
     for (let i=0; i<trackContainers.length; i++) {
@@ -98,12 +98,17 @@ const init = () => {
         const bar = currentPlayer.querySelector('.progress')
         const mins = ('0' + Math.floor(audio.currentTime / 60)).substr(-2)
         const secs = ('0' + Math.floor(audio.currentTime % 60)).substr(-2)
+        const minsLength = Math.floor(audio.duration / 60)
+        const secsLength = Math.floor(audio.duration % 60)
+        const length = (minsLength <= 9 ? '0' + minsLength : minsLength) + ':' + (secsLength <= 9 ? '0' + secsLength : secsLength)
         const progress = audio.currentTime / audio.duration
 
         if (!audio.error) {
             duration.textContent = `${mins}:${secs}`
             bar.style.width = `${progress * 100}%`
         }
+
+        if (/\d/.test(length)) duration.textContent += ' / ' + length
     }
 
     audio.onloadstart = function() {
