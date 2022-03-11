@@ -18,7 +18,7 @@ const init = () => {
         'https://vgmsite.com/soundtracks/kirby-s-return-to-dream-land/ozhvtqgwda/1-04%20A%20Visitor%20from%20Afar.mp3',
         'https://vgmsite.com/soundtracks/silent-hill-3-original/eibucmzo/03.%20Float%20Up%20From%20Dream.mp3',
         'https://vgmsite.com/soundtracks/persona-4-arena-original-soundtrack/qfpkhgsflq/01.%20Best%20Friends.mp3',
-        'https://vgmsite.com/soundtracks/metal-gear-solid-3-snake-eater-original-soundtrack/luivnntl/1-03.%20CQC.mp3'
+        'audioclip-1612705143000-85589 (online-audio-converter.com).mp3'
     ]
 
     for (let i=0; i<trackContainers.length; i++) {
@@ -48,7 +48,7 @@ const init = () => {
                     }
                 }
 
-                if (ev.target == firstChild) {
+                if (ev.target == firstChild && firstChild == currentPlayer) {
                     firstChild.classList.remove('selected')
                     firstChild.classList.add('first-child')
                 }
@@ -185,7 +185,7 @@ const init = () => {
         } else if (event.target.id == 'pause' && player == currentPlayer) {
             audio.pause()
         } else if (event.target.id == 'stop' && player == currentPlayer) {
-            if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) {
+            if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA && audio.currentTime != audio.duration) {
                 audio.pause()
                 audio.currentTime = 0
                 audio.stopped = true
