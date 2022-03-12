@@ -32,7 +32,6 @@ body {
         background-position: center;
         padding: 1em;
         border: 1em solid white;
-        //box-shadow: 0 0 .1em black;
         display: grid;
         color: white;
         transition: all .5s ease;
@@ -121,6 +120,7 @@ body {
                 padding: .5em 1em;
                 margin-top: .5em;
                 transition: all .5s ease;
+                mix-blend-mode: screen;
 
                 &:hover {
                     background: white;
@@ -152,7 +152,6 @@ body {
             position: absolute;
             right: 1em;
             bottom: 4em;
-            margin-left: auto;
         }
     }
 
@@ -175,12 +174,6 @@ body {
 
     .first-child {
         box-shadow: 0 0 .1em black;
-    }
-
-    .message-box {
-        position: absolute;
-        background: red;
-        color: black;
     }
 }
 

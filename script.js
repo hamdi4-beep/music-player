@@ -93,24 +93,6 @@ const init = () => {
         info.append(durationLength)
     }
 
-    audio.ontimeupdate = function() {
-        const duration = currentPlayer.querySelector('.duration')
-        const bar = currentPlayer.querySelector('.progress')
-        const mins = ('0' + Math.floor(audio.currentTime / 60)).substr(-2)
-        const secs = ('0' + Math.floor(audio.currentTime % 60)).substr(-2)
-        const minsLength = Math.floor(audio.duration / 60)
-        const secsLength = Math.floor(audio.duration % 60)
-        const length = (minsLength <= 9 ? '0' + minsLength : minsLength) + ':' + (secsLength <= 9 ? '0' + secsLength : secsLength)
-        const progress = audio.currentTime / audio.duration
-
-        if (!audio.error) {
-            duration.textContent = `${mins}:${secs}`
-            bar.style.width = `${progress * 100}%`
-        }
-
-        if (/\d/.test(length)) duration.textContent += ' / ' + length
-    }
-
     audio.onloadstart = function() {
         const progress = currentPlayer.querySelector('.progress')
         status.textContent = ' - is loading...'
@@ -141,13 +123,13 @@ const init = () => {
         }
     }
 
-    audio.onplaying = function() {
-        if (!audio.paused) status.textContent = ' - is playing now!'
-    }
-
     audio.onpause = function() {
         if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) status.textContent = ' - is paused now!'
         currentPlayer.querySelector('.progress').classList.remove('loading')
+    }
+
+    audio.onended = function() {
+        status.textContent = ' - has finished playing!'
     }
 
     audio.onerror = function() {
@@ -160,8 +142,21 @@ const init = () => {
         progress.style.width = '0'
     }
 
-    audio.onended = function() {
-        status.textContent = ' - has finished playing!'
+    audio.ontimeupdate = function() {
+        const duration = currentPlayer.querySelector('.duration')
+        const bar = currentPlayer.querySelector('.progress')
+        const mins = ('0' + Math.floor(audio.currentTime / 60)).substr(-2)
+        const secs = ('0' + Math.floor(audio.currentTime % 60)).substr(-2)
+        const minsLength = Math.floor(audio.duration / 60)
+        const secsLength = Math.floor(audio.duration % 60)
+        const length = (minsLength <= 9 ? '0' + minsLength : minsLength) + ':' + (secsLength <= 9 ? '0' + secsLength : secsLength)
+        const result = /\d/.test(length)
+        const progress = audio.currentTime / audio.duration
+
+        if (!audio.error && result) {
+            duration.textContent = `${mins}:${secs} / ${length}`
+            bar.style.width = `${progress * 100}%`
+        }
     }
 
     function playMusic(event, url) {
