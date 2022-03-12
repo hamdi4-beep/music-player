@@ -120,9 +120,43 @@ body {
   margin-left: auto;
   margin-right: 0.5em;
   align-self: center;
+  position: relative;
+  z-index: 9999;
 }
 .wrapper .track-container .controls .fas {
   cursor: pointer;
+}
+.wrapper .track-container .controls .settings {
+  position: absolute;
+  right: 0.5em;
+  bottom: 2em;
+  z-index: 9999;
+  pointer-events: none;
+}
+.wrapper .track-container .controls .settings ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 1em;
+  background: white;
+  clip-path: circle(0% at bottom right);
+  transition: clip-path 0.5s ease;
+  pointer-events: none;
+}
+.wrapper .track-container .controls .settings ul li {
+  padding: 0.5em 1em;
+  color: black;
+  text-align: center;
+  cursor: pointer;
+}
+.wrapper .track-container .controls .settings ul li:not(:last-child) {
+  border-bottom: 1px solid #DDD;
+}
+.wrapper .track-container .controls .settings ul li:hover {
+  background: #DDD;
+}
+.wrapper .track-container .controls .settings .display {
+  clip-path: circle(100%);
+  pointer-events: all;
 }
 .wrapper .track-container .fas:hover {
   color: purple;

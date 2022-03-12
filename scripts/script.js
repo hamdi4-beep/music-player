@@ -63,9 +63,14 @@ const init = () => {
 
         trackContainers[i].onclick = function(ev) {
             const closeIcon = trackContainers[i].querySelector('.fa-close')
+            const settings = trackContainers[i].querySelector('.settings ul')
 
             if (ev.target.className == 'fas fa-edit') {
-                uploadImg(ev.target.parentElement.parentNode)
+                if (settings.classList.contains('display')) {
+                    settings.classList.remove('display')
+                } else {
+                    settings.classList.add('display')
+                }
             }
 
             if (ev.target.className == 'fas fa-close') {
@@ -82,6 +87,10 @@ const init = () => {
                 }
 
                 closeIcon.style.display = 'none'
+            }
+
+            if (ev.target.id == 'upload-cover-img') {
+                uploadFile(trackContainers[i])
             }
 
             playMusic(ev, list[i])
@@ -194,7 +203,7 @@ const init = () => {
         }
     }
 
-    function uploadImg(elem) {
+    function uploadFile(target) {
         const input = document.createElement('input')
         input.type = 'file'
         input.click()
@@ -203,17 +212,15 @@ const init = () => {
             if (this.files[0]) {
                 const reader = new FileReader
                 const file = this.files[0]
-                const type = file.type
+                const type = (file.type).split('/')[0]
 
-                if (type.split('/')[0] == 'image') {
-                    reader.onload = function() {
-                        elem.style.backgroundImage = `url(${reader.result})`
+                reader.onload = function() {
+                    if (type == 'image' && target instanceof HTMLElement) {
+                        target.style.backgroundImage = `url(${reader.result})`
                     }
-
-                    reader.readAsDataURL(file)
-                } else {
-                    alert('Please make sure to upload an image file!')
                 }
+
+                reader.readAsDataURL(file)
             }
         }
 

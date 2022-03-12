@@ -133,10 +133,50 @@ body {
                 margin-left: auto;
                 margin-right: .5em;
                 align-self: center;
+                position: relative;
+                z-index: 9999;
             }
 
             .fas {
                 cursor: pointer;
+            }
+
+            .settings {
+                position: absolute;
+                right: .5em;
+                bottom: 2em;
+                z-index: 9999;
+                pointer-events: none;
+
+                ul {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 1em;
+                    background: white;
+                    clip-path: circle(0% at bottom right);
+                    transition: clip-path .5s ease;
+                    pointer-events: none;
+
+                    li {
+                        padding: .5em 1em;
+                        color: black;
+                        text-align: center;
+                        cursor: pointer;
+
+                        &:not(:last-child) {
+                            border-bottom: 1px solid #DDD;
+                        }
+
+                        &:hover {
+                            background: #DDD;
+                        }
+                    }
+                }
+
+                .display {
+                    clip-path: circle(100%);
+                    pointer-events: all;
+                }
             }
         }
 
