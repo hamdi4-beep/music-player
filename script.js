@@ -65,7 +65,7 @@ const init = () => {
             const closeIcon = trackContainers[i].querySelector('.fa-close')
 
             if (ev.target.className == 'fas fa-edit') {
-                uploadImg(trackContainers[i])
+                uploadImg(ev.target.parentElement.parentNode)
             }
 
             if (ev.target.className == 'fas fa-close') {
@@ -188,7 +188,7 @@ const init = () => {
 
             audio.play()
         } else if (event.target.id == 'pause' && player == currentPlayer) {
-            audio.pause()
+            if (audio.readyState == audio.HAVE_ENOUGH_DATA) audio.pause()
         } else if (event.target.id == 'stop' && player == currentPlayer) {
             if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA && audio.currentTime != audio.duration) {
                 audio.pause()

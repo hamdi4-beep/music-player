@@ -152,6 +152,11 @@ body {
 .wrapper .first-child {
   box-shadow: 0 0 0.1em black;
 }
+.wrapper .message-box {
+  position: absolute;
+  background: red;
+  color: black;
+}
 
 @media only screen and (min-width: 1680px) {
   body {
