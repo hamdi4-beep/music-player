@@ -118,7 +118,6 @@ body {
 .wrapper .track-container .controls .fa-edit {
   margin-top: 0.5em;
   margin-left: auto;
-  margin-right: 0.5em;
   align-self: center;
   position: relative;
   z-index: 9999;
@@ -128,7 +127,7 @@ body {
 }
 .wrapper .track-container .controls .settings {
   position: absolute;
-  right: 0.5em;
+  right: 0;
   bottom: 2em;
   z-index: 9999;
   pointer-events: none;
@@ -140,6 +139,7 @@ body {
   background: white;
   clip-path: circle(0% at bottom right);
   transition: clip-path 0.5s ease;
+  box-shadow: 0 0 0.3em black;
   pointer-events: none;
 }
 .wrapper .track-container .controls .settings ul li {

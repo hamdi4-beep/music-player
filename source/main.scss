@@ -131,7 +131,6 @@ body {
             .fa-edit {
                 margin-top: .5em;
                 margin-left: auto;
-                margin-right: .5em;
                 align-self: center;
                 position: relative;
                 z-index: 9999;
@@ -143,7 +142,7 @@ body {
 
             .settings {
                 position: absolute;
-                right: .5em;
+                right: 0;
                 bottom: 2em;
                 z-index: 9999;
                 pointer-events: none;
@@ -155,6 +154,7 @@ body {
                     background: white;
                     clip-path: circle(0% at bottom right);
                     transition: clip-path .5s ease;
+                    box-shadow: 0 0 .3em black;
                     pointer-events: none;
 
                     li {
