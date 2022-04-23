@@ -21,10 +21,22 @@ const init = () => {
         'https://vgmsite.com/soundtracks/one-piece-pirate-warriors-3-gamerip/kpxzpwed/04%20Lets%20Put%20This%20Matter%20Under.mp3'
     ]
 
+    wrapper.addEventListener('click', e => {
+        const btns = wrapper.querySelectorAll('.settings ul')
+
+        if (e.target.className != 'fas fa-edit') {
+            for (const btn of btns) {
+                if (btn.classList.contains('display') && !(btn.contains(e.target))) {
+                    btn.classList.remove('display')
+                }
+            }
+        }
+    })
+
     for (let i=0; i<trackContainers.length; i++) {
         const controls = trackContainers[i].querySelector('.controls')
         const info = trackContainers[i].querySelector('.info')
-        const title = info.querySelector('p')
+        const title = info.querySelector('h4')
         const progress = document.createElement('div')
         const statusTxt = document.createElement('span')
         const durationLength = document.createElement('p')
@@ -118,7 +130,7 @@ const init = () => {
     audio.onplay = function() {
         for (const player of trackContainers) {
             if (player != currentPlayer) {
-                const status = player.querySelector('p span')
+                const status = player.querySelector('h4 span')
                 const duration = player.querySelector('.duration')
                 const bar = player.querySelector('.progress')
 
@@ -178,7 +190,7 @@ const init = () => {
             }
 
             currentPlayer = event.currentTarget
-            status = currentPlayer.querySelector('.info p span')
+            status = currentPlayer.querySelector('.info h4 span')
 
             currentPlayer.classList.add('selected')
 
