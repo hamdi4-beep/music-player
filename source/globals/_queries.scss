@@ -1,0 +1,11 @@
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        height: 100%;
+        margin: 0;
+        display: block;
+
+        .track-container:not(:last-child) {
+            margin-bottom: 1em;
+        }
+    }
+}

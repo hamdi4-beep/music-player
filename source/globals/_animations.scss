@@ -1,0 +1,7 @@
+@keyframes loading {
+    from {
+        left: 0%;
+    } to {
+        left: calc(100% - 5em);
+    }
+}

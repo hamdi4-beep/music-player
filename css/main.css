@@ -1,28 +1,38 @@
-* {
-  box-sizing: border-box;
+.settings {
+  position: absolute;
+  right: 0;
+  bottom: 2em;
+  z-index: 9999;
+  pointer-events: none;
 }
-
-:root {
-  --border-color: white;
-  --selection-color: transparent;
-}
-
-body {
+.settings ul {
+  list-style-type: none;
   margin: 0;
+  padding: 1em;
+  background: white;
+  clip-path: circle(0% at bottom right);
+  transition: clip-path 0.5s ease;
+  box-shadow: 0 2rem 4rem -2rem black;
+  pointer-events: none;
+}
+.settings ul li {
+  padding: 0.5em 1em;
+  color: black;
+  text-align: center;
+  cursor: pointer;
+}
+.settings ul li:not(:last-child) {
+  border-bottom: 1px solid #DDD;
+}
+.settings ul li:hover {
+  background: #DDD;
+}
+.settings .display {
+  clip-path: circle(100%);
+  pointer-events: all;
 }
 
-.wrapper {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  margin-inline: auto;
-  padding: 1em;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25em, 1fr));
-  gap: 1em;
-  transition: all 0.5s ease;
-  height: 100vh;
-  position: relative;
-}
-.wrapper .track-container {
+.track-container {
   position: relative;
   top: 0;
   left: 0;
@@ -30,13 +40,13 @@ body {
   background-clip: padding-box;
   background-size: cover;
   background-position: center;
+  border: 1rem solid white;
   padding: 1em;
-  border: 1em solid white;
   display: grid;
   color: white;
   transition: all 0.5s ease;
 }
-.wrapper .track-container::before, .wrapper .track-container::after {
+.track-container::before, .track-container::after {
   content: "";
   display: block;
   position: absolute;
@@ -45,28 +55,28 @@ body {
   height: 0%;
   transition: all 0.5s ease;
 }
-.wrapper .track-container::before {
+.track-container::before {
   left: -1em;
   top: 1em;
   background: linear-gradient(to top, black, white);
 }
-.wrapper .track-container::after {
+.track-container::after {
   left: -1em;
   bottom: -1em;
   background: linear-gradient(to right, black, white);
 }
-.wrapper .track-container:hover::before {
+.track-container:hover::before {
   width: 1px;
   height: 100%;
 }
-.wrapper .track-container:hover:after {
+.track-container:hover:after {
   width: 100%;
   height: 1px;
 }
-.wrapper .track-container:nth-child(3) {
+.track-container:nth-child(3) {
   grid-row: span 2;
 }
-.wrapper .track-container .fa-close {
+.track-container .fa-close {
   position: absolute;
   right: 0.5em;
   top: 0.5em;
@@ -74,29 +84,45 @@ body {
   font-size: 1.5em;
   cursor: pointer;
 }
-.wrapper .track-container .info {
+.track-container .info {
   display: flex;
   justify-content: center;
   margin-bottom: 2em;
 }
-.wrapper .track-container .info > h4, .wrapper .track-container .info {
+.track-container .info > h4, .track-container .info {
   justify-self: center;
   align-self: flex-start;
   margin: 0;
   text-align: center;
 }
-.wrapper .track-container .info span {
+.track-container .info span {
   display: block;
   font-weight: lighter;
   margin-bottom: 2rem;
 }
-.wrapper .track-container .controls {
+.track-container .fas:hover {
+  color: purple;
+}
+.track-container p {
+  margin: 0;
+}
+.track-container .duration {
+  position: absolute;
+  right: 1em;
+  bottom: 4em;
+}
+
+.selected {
+  box-shadow: -2px 4px 8px -2px black;
+}
+
+.controls {
   position: relative;
   display: flex;
   margin-top: auto;
   border-top: 1px solid var(--border-color);
 }
-.wrapper .track-container .controls .progress {
+.controls .progress {
   position: absolute;
   top: -1px;
   height: 1px;
@@ -104,12 +130,12 @@ body {
   background: purple;
   transition: width 0.5s ease;
 }
-.wrapper .track-container .controls .loading {
+.controls .loading {
   animation: loading alternate-reverse infinite 0.5s ease-in-out;
   width: 5em;
   z-index: 999;
 }
-.wrapper .track-container .controls a {
+.controls a {
   display: block;
   text-decoration: none;
   color: white;
@@ -118,103 +144,26 @@ body {
   transition: all 0.5s ease;
   mix-blend-mode: screen;
 }
-.wrapper .track-container .controls a:hover {
+.controls a:hover {
   background: white;
   color: black;
 }
-.wrapper .track-container .controls .fa-edit {
+.controls .fa-edit {
   margin-top: 0.5em;
   margin-left: auto;
   align-self: center;
   position: relative;
   z-index: 9999;
 }
-.wrapper .track-container .controls .fas {
+.controls .fas {
   cursor: pointer;
 }
-.wrapper .track-container .controls .settings {
-  position: absolute;
-  right: 0;
-  bottom: 2em;
-  z-index: 9999;
-  pointer-events: none;
-}
-.wrapper .track-container .controls .settings ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 1em;
-  background: white;
-  clip-path: circle(0% at bottom right);
-  transition: clip-path 0.5s ease;
-  box-shadow: 0 0 0.3em black;
-  pointer-events: none;
-}
-.wrapper .track-container .controls .settings ul li {
-  padding: 0.5em 1em;
-  color: black;
-  text-align: center;
-  cursor: pointer;
-}
-.wrapper .track-container .controls .settings ul li:not(:last-child) {
-  border-bottom: 1px solid #DDD;
-}
-.wrapper .track-container .controls .settings ul li:hover {
-  background: #DDD;
-}
-.wrapper .track-container .controls .settings .display {
-  clip-path: circle(100%);
-  pointer-events: all;
-}
-.wrapper .track-container .fas:hover {
-  color: purple;
-}
-.wrapper .track-container p {
-  margin: 0;
-}
-.wrapper .track-container .duration {
-  position: absolute;
-  right: 1em;
-  bottom: 4em;
-}
-.wrapper .hidden {
-  display: none;
-}
-.wrapper .hidden ~ .selected {
-  top: 0;
-  border-color: white;
-  box-shadow: 0 0 0.1em black;
-}
-.wrapper .selected {
-  position: relative;
-  top: -0.5em;
-  border-color: var(--border-color);
-  box-shadow: 0 0 0.1em black;
-}
-.wrapper .first-child {
-  box-shadow: 0 0 0.1em black;
-}
 
-@media only screen and (min-width: 1680px) {
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-
-  .wrapper {
-    width: 50vw;
-    height: 50vh;
-  }
-}
 @media only screen and (max-width: 768px) {
   .wrapper {
     height: 100%;
     margin: 0;
     display: block;
-  }
-  .wrapper .selected {
-    top: -0.5em;
   }
   .wrapper .track-container:not(:last-child) {
     margin-bottom: 1em;
@@ -227,6 +176,34 @@ body {
   to {
     left: calc(100% - 5em);
   }
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --border-color: white;
+  --selection-color: transparent;
+}
+
+.wrapper {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin-inline: auto;
+  padding: 2rem;
+  transition: all 0.5s ease;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  height: 100vh;
+  gap: 1rem;
+}
+.wrapper .hidden {
+  display: none;
+}
+.wrapper .first-child {
+  box-shadow: 0 0 0.1em black;
 }
 
 /*# sourceMappingURL=main.css.map */
