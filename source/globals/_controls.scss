@@ -19,14 +19,16 @@
         z-index: 999;
     }
 
-    a {
-        display: block;
-        text-decoration: none;
+    button {
+        border: none;
+        border-radius: 5px;
+        background: none;
+        font: inherit;
+        cursor: pointer;
         color: white;
-        padding: .5em 1em;
+        padding: .5em 1.2rem;
         margin-top: .5em;
         transition: all .5s ease;
-        mix-blend-mode: screen;
 
         &:hover {
             background: white;
@@ -34,15 +36,16 @@
         }
     }
 
-    .fa-edit {
+    .btns {
         margin-top: .5em;
         margin-left: auto;
         align-self: center;
         position: relative;
         z-index: 9999;
-    }
 
-    .fas {
-        cursor: pointer;
+        .fas {
+            margin-left: 5px;
+            cursor: pointer;
+        }
     }
 }

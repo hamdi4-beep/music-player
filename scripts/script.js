@@ -36,7 +36,7 @@ const init = () => {
     for (let i=0; i<trackContainers.length; i++) {
         const controls = trackContainers[i].querySelector('.controls')
         const info = trackContainers[i].querySelector('.info')
-        const title = info.querySelector('h4')
+        const title = info.querySelector('h3')
         const progress = document.createElement('div')
         const statusTxt = document.createElement('span')
         const durationLength = document.createElement('p')
@@ -45,18 +45,15 @@ const init = () => {
         progress.classList.add('progress')
         durationLength.classList.add('duration')
 
-        trackContainers[i].ondblclick = function(ev) {
+        trackContainers[i].addEventListener('click', function(ev) {
             const styles = getComputedStyle(wrapper)
 
-            if (ev.target.className == trackContainers[i].className) {
+            if (ev.target.className == 'fas fa-expand') {
                 const firstChild = wrapper.firstElementChild
 
                 for (const track of trackContainers) {
-                    if (ev.target != track) {
-                        track.classList.add('hidden')
-                    } else {
-                        const closeIcon = track.querySelector('.fa-close')
-                        closeIcon.style.display = 'inline'
+                    if (ev.currentTarget != track) {
+                        track.classList.toggle('hidden')
                     }
                 }
 
@@ -71,34 +68,19 @@ const init = () => {
                     }
                 }
             }
-        }
+        })
 
         trackContainers[i].onclick = function(ev) {
-            const closeIcon = trackContainers[i].querySelector('.fa-close')
             const settings = trackContainers[i].querySelector('.settings ul')
 
-            if (ev.target.className == 'fas fa-edit') {
-                if (settings.classList.contains('display')) {
-                    settings.classList.remove('display')
-                } else {
-                    settings.classList.add('display')
+            if (ev.target.className == 'fas fa-edit') settings.classList.toggle('display')
+
+            if (ev.target.className == 'fas fa-expand') {
+                if (currentPlayer == wrapper.firstElementChild) {
+                    currentPlayer.classList.add('selected')
+                    currentPlayer.classList.remove('first-child')
+                    currentPlayer.classList.remove('full-view')
                 }
-            }
-
-            if (ev.target.className == 'fas fa-close') {
-                for (const track of trackContainers) {
-                    if (track.classList.contains('hidden')) {
-                        track.classList.remove('hidden')
-                    }
-
-                    if (currentPlayer == wrapper.firstElementChild) {
-                        currentPlayer.classList.add('selected')
-                        currentPlayer.classList.remove('first-child')
-                        currentPlayer.classList.remove('full-view')
-                    }
-                }
-
-                closeIcon.style.display = 'none'
             }
 
             if (ev.target.id == 'upload-cover-img') {
@@ -116,21 +98,19 @@ const init = () => {
 
     audio.onloadstart = function() {
         const progress = currentPlayer.querySelector('.progress')
-        status.textContent = ' - is loading...'
         progress.classList.add('loading')
         progress.style.width = '5em'
     }
 
     audio.oncanplaythrough = function() {
         const progress = currentPlayer.querySelector('.progress')
-        if (!audio.paused) status.textContent = ' - is playing now'
         progress.classList.remove('loading')
     }
 
     audio.onplay = function() {
         for (const player of trackContainers) {
             if (player != currentPlayer) {
-                const status = player.querySelector('h4 span')
+                const status = player.querySelector('h3 span')
                 const duration = player.querySelector('.duration')
                 const bar = player.querySelector('.progress')
 
@@ -145,18 +125,14 @@ const init = () => {
     }
 
     audio.onpause = function() {
-        if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) status.textContent = ' - is paused now!'
         currentPlayer.querySelector('.progress').classList.remove('loading')
-    }
-
-    audio.onended = function() {
-        status.textContent = ' - has finished playing!'
     }
 
     audio.onerror = function() {
         const duration = currentPlayer.querySelector('.duration')
         const progress = currentPlayer.querySelector('.loading')
-        status.textContent = ' - failed to load!'
+        const title = currentPlayer.querySelector('.info h3')
+        title.textContent += ' - Network Error!'
         duration.textContent = ''
         audio.error = true
         progress.classList.remove('loading')
@@ -190,7 +166,7 @@ const init = () => {
             }
 
             currentPlayer = event.currentTarget
-            status = currentPlayer.querySelector('.info h4 span')
+            status = currentPlayer.querySelector('.info h3 span')
 
             currentPlayer.classList.add('selected')
 
@@ -200,8 +176,6 @@ const init = () => {
                 }
             }
 
-            if (!audio.error && audio.readyState == audio.HAVE_ENOUGH_DATA) status.textContent = ' - is playing now'
-
             audio.play()
         } else if (event.target.id == 'pause' && player == currentPlayer) {
             if (audio.readyState == audio.HAVE_ENOUGH_DATA) audio.pause()
@@ -210,7 +184,6 @@ const init = () => {
                 audio.pause()
                 audio.currentTime = 0
                 audio.stopped = true
-                status.textContent = ' - has stopped playing'
             }
         }
     }

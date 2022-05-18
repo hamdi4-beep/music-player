@@ -25,7 +25,7 @@
   border-bottom: 1px solid #DDD;
 }
 .settings ul li:hover {
-  background: #DDD;
+  background: #f2e9e491;
 }
 .settings .display {
   clip-path: circle(100%);
@@ -36,7 +36,7 @@
   position: relative;
   top: 0;
   left: 0;
-  background: #444;
+  background: #f0ecec;
   background-clip: padding-box;
   background-size: cover;
   background-position: center;
@@ -44,7 +44,16 @@
   padding: 1em;
   display: grid;
   color: white;
-  transition: all 0.5s ease;
+  transition: all 500ms ease;
+  z-index: 1;
+  box-shadow: 0 0 1rem black inset;
+}
+.track-container .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+  z-index: -1;
+  pointer-events: none;
 }
 .track-container::before, .track-container::after {
   content: "";
@@ -76,24 +85,23 @@
 .track-container:nth-child(3) {
   grid-row: span 2;
 }
-.track-container .fa-close {
-  position: absolute;
-  right: 0.5em;
-  top: 0.5em;
-  display: none;
-  font-size: 1.5em;
+.track-container .fas {
   cursor: pointer;
 }
 .track-container .info {
   display: flex;
-  justify-content: center;
   margin-bottom: 2em;
 }
-.track-container .info > h4, .track-container .info {
-  justify-self: center;
+.track-container .info > h3, .track-container .info {
   align-self: flex-start;
+  justify-self: center;
   margin: 0;
-  text-align: center;
+  font-weight: 500;
+}
+.track-container .info h3 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin-bottom: 1rem;
+  margin-right: auto;
 }
 .track-container .info span {
   display: block;
@@ -113,7 +121,8 @@
 }
 
 .selected {
-  box-shadow: -2px 4px 8px -2px black;
+  transform: scale(1.1);
+  z-index: 999;
 }
 
 .controls {
@@ -135,27 +144,30 @@
   width: 5em;
   z-index: 999;
 }
-.controls a {
-  display: block;
-  text-decoration: none;
+.controls button {
+  border: none;
+  border-radius: 5px;
+  background: none;
+  font: inherit;
+  cursor: pointer;
   color: white;
-  padding: 0.5em 1em;
+  padding: 0.5em 1.2rem;
   margin-top: 0.5em;
   transition: all 0.5s ease;
-  mix-blend-mode: screen;
 }
-.controls a:hover {
+.controls button:hover {
   background: white;
   color: black;
 }
-.controls .fa-edit {
+.controls .btns {
   margin-top: 0.5em;
   margin-left: auto;
   align-self: center;
   position: relative;
   z-index: 9999;
 }
-.controls .fas {
+.controls .btns .fas {
+  margin-left: 5px;
   cursor: pointer;
 }
 
@@ -201,6 +213,18 @@
 }
 .wrapper .hidden {
   display: none;
+}
+.wrapper .hidden ~ .track-container {
+  transform: none;
+}
+.wrapper .hidden .selected:first-child {
+  transform: none;
+}
+.wrapper .hidden ~ .track-container .fa-expand {
+  color: purple;
+}
+.wrapper .selected:first-child {
+  transform: none;
 }
 .wrapper .first-child {
   box-shadow: 0 0 0.1em black;

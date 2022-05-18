@@ -26,6 +26,25 @@
         display: none;
     }
 
+    .hidden ~ .track-container {
+        transform: none;
+    }
+
+    .hidden .selected:first-child {
+        transform: none;
+    }
+
+    .hidden ~ .track-container {
+        
+        .fa-expand {
+            color: purple;
+        }
+    }
+
+    .selected:first-child {
+        transform: none;
+    }
+
     .first-child {
         box-shadow: 0 0 .1em black;
     }
